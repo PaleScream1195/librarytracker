@@ -1,7 +1,5 @@
 <?php session_start(); ?>
 
-
-
 <!--  ********************************************************************
       Index.php        by: Ethan Owens      Date:17 October 2018
       The script contained in this file
