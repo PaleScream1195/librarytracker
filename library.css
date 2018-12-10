@@ -1,0 +1,23 @@
+body {
+height: 100%;
+background-color: ivory;
+}
+.container{
+    margin-top: 2em;
+}
+.box{
+border-style: solid;
+border-color: black;
+padding: 2px 0px 2px 0px;
+width:50%;
+margin: auto;
+text-align:center;
+background-color: darkgray;
+color: white;
+}
+.box:nth-child(even){
+    background-color: dimgray;
+}
+a{
+    color: white;
+}

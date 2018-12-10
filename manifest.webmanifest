@@ -1,0 +1,15 @@
+{
+  "background_color": "purple",
+  "description": "A virtual way to keep track of your physical library.",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "book.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "name": "Library Tracker",
+  "short_name": "library",
+  "start_url": "Index.php"
+}
