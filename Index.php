@@ -1,17 +1,12 @@
 <?php session_start();
 /*
-
-
-
 <!--  ********************************************************************
       Index.php        by: Ethan Owens      Date:17 October 2018
-      The script contained in this file
-      is supposed to represent the shell of my application.
-
-      I believe that it has been changed to represent the homepage of my application.
+      The script contained in this file is the homepage of my application.
       ********************************************************************  -->
-      */
+*/
  ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -27,7 +22,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="library.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </head>
@@ -59,19 +53,26 @@
     </div>
 
     <script>
-var data;
     $.getJSON("Index.JSON.php", function(result){
       var html='';
       for(i=0;i<result.length;i++){
           html+=
-          '<div class="box"> '+
+          '<div class="box" > '+
           "<a href=detail.php?ID=" + result[i].ID +">"+result[i].title+"</a>" +
-          " By: "+result[i].fname+" "+result[i].lname +
-          "</div>"
+          " By: "+result[i].fname+" "+result[i].lname + "<br>" +
+          '<a class="btn btn-primary btn-sm active delete_button" data-id="'+result[i].ID+'" name="delete"  role="button" aria-pressed="true">Delete this Entry</a>'
+          +
+          "</div>";
       }
       $( "#bookList" ).html(html);
     });
-
+    $(document ).on('click', ".delete_button",function() {
+      // contains the bookID that is dynamically grabbed.
+      $(this).data('id');
+      console.log($(this).data('id'));
+      $(this).parent().remove();
+      $.getJSON("delete.php?ID="+ $(this).data('id') +"");
+    });
   </script>
 
   </body>
