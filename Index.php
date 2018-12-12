@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php session_start();
+/*
+
+
 
 <!--  ********************************************************************
       Index.php        by: Ethan Owens      Date:17 October 2018
@@ -7,6 +10,8 @@
 
       I believe that it has been changed to represent the homepage of my application.
       ********************************************************************  -->
+      */
+ ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,8 +26,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="library.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </head>
@@ -49,35 +54,25 @@
   </div>
 </nav>
     <!-- How will it all be displayed on the page. -->
-    <?php
 
-    $data = $_SESSION["ID"] ;
-
-    require_once('MYSQL_Class.php');
-    $mySQL = new mySQL();
-    $mySQL->connect('localhost','librarytracker','root','');
-
-    $result = $mySQL -> select ('SELECT books.ID, title, fname, lname FROM books
-                                 JOIN users_books ON users_books.bookID = books.ID
-                                 JOIN authors_books ON books.ID = authors_books.bookID
-                                 JOIN authors ON authors.ID = authors_books.authorID
-                                 WHERE users_books.userID = ?', [$data]);
-    ?>
-
-
-      <div class="container">
-          <div class="box">Title</div>
- <?php
-
-      while ($row = $result->fetch()){
-        echo"<div class='box' >";
-        echo "<a href='detail.php?ID=".$row['ID']."'>".$row['title']."</a>";
-        echo " By: ".$row['fname']." ".$row['lname'];
-        echo"</div>";
-    }
-     ?>
+      <div class="container" id="bookList">
     </div>
 
+    <script>
+var data;
+    $.getJSON("Index.JSON.php", function(result){
+      var html='';
+      for(i=0;i<result.length;i++){
+          html+=
+          '<div class="box"> '+
+          "<a href=detail.php?ID=" + result[i].ID +">"+result[i].title+"</a>" +
+          " By: "+result[i].fname+" "+result[i].lname +
+          "</div>"
+      }
+      $( "#bookList" ).html(html);
+    });
+
+  </script>
 
   </body>
   </html>

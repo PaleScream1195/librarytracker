@@ -63,7 +63,7 @@ session_start();
 
     while ($row = $result->fetch()){
       echo "<div class='box' >";
-      echo "<a href='detail.php?ID=".$row['ID']."'>".$row['title']."</a>";
+      echo "<a href='detail.php?ID=".$row['ID']."&page=wishlist'>".$row['title']."</a>";
       echo " By: ".$row['fname']." ".$row['lname'];
       echo "<br><p>".$row['description']."</p>";
       echo "</div>";
